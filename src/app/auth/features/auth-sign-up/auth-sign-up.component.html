@@ -3,14 +3,10 @@
     class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"
   >
     <a
-      href="#"
+      routerLink="/"
       class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
     >
-      <img
-        class="w-8 h-8 mr-2"
-        src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
-        alt="logo"
-      />
+      <img class="w-8 h-8 mr-2" src="/notesApp.png" alt="logo" />
       NotesApp
     </a>
     <div
@@ -22,7 +18,11 @@
         >
           Nueva Cuenta
         </h1>
-        <form class="space-y-4 md:space-y-6" action="#">
+        <form
+          class="space-y-4 md:space-y-6"
+          [formGroup]="form"
+          (ngSubmit)="submit()"
+        >
           <div>
             <label
               for="email"
@@ -36,6 +36,7 @@
               class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-rose-600 focus:border-rose-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="correo@correo.com"
               required=""
+              formControlName="email"
             />
           </div>
           <div>
@@ -51,6 +52,7 @@
               placeholder="••••••••"
               class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-rose-600 focus:border-rose-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               required=""
+              formControlName="password"
             />
           </div>
 
@@ -63,7 +65,7 @@
           <p class="text-sm font-light text-gray-500 dark:text-gray-400">
             ¿Ya tienes una cuenta?
             <a
-              href="#"
+              routerLink="/auth/log-in"
               class="font-medium text-rose-600 hover:underline dark:text-rose-500"
               >Inicia sesión</a
             >
