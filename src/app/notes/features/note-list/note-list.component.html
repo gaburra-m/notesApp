@@ -1,20 +1,69 @@
-<nav class="bg-white border-gray-200 dark:bg-gray-900">
-  <div
-    class="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto"
-  >
-    <a routerLink="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-      <img src="/notesApp.png" class="h-8" alt="Notesapp Logo" />
-      <span
-        class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
-        >NotesApp</span
-      >
-    </a>
-
-    <button
-      (click)="logOut()"
-      class="text-white bg-rose-600 hover:bg-rose-700 focus:ring-4 focus:outline-none focus:ring-rose-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-rose-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800"
+<header class="container max-w-6xl mx-auto mb-8">
+  <nav class="bg-white border-gray-200 dark:bg-gray-900">
+    <div
+      class="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto"
     >
-      Cerrar sesión
-    </button>
+      <a routerLink="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <img src="/notesApp.png" class="h-8" alt="Notesapp Logo" />
+        <span
+          class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
+          >NotesApp</span
+        >
+      </a>
+
+      <button
+        (click)="logOut()"
+        class="text-white bg-rose-600 hover:bg-rose-700 focus:ring-4 focus:outline-none focus:ring-rose-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-rose-600 dark:hover:bg-rose-700 dark:focus:ring-rose-800"
+      >
+        Cerrar sesión
+      </button>
+    </div>
+  </nav>
+</header>
+<main class="container max-w-6xl mx-auto">
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table
+      class="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400"
+    >
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+      >
+        <tr>
+          <th scope="col" class="px-6 py-3">id</th>
+          <th scope="col" class="px-6 py-3">Title</th>
+          <th scope="col" class="px-6 py-3">Nota</th>
+          <th scope="col" class="px-6 py-3">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (note of notesService.notes(); track note) {
+        <tr
+          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+        >
+          <!-- <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+              10
+            </th> -->
+          <td class="px-6 py-4">{{ note.id }}</td>
+          <td class="px-6 py-4">{{ note.title }}</td>
+          <td class="px-6 py-4">{{ note.note }}</td>
+          <td class="flex items-center px-6 py-4">
+            <a
+              href="#"
+              class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+              >Edit</a
+            >
+            <a
+              href="#"
+              class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
+              >Remove</a
+            >
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
   </div>
-</nav>
+</main>
