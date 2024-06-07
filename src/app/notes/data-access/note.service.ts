@@ -11,7 +11,7 @@ interface Note {
   id: string;
   title: string;
   note: string | null;
-  color: string | null;
+  isImportant: boolean;
   user_id: string;
 }
 

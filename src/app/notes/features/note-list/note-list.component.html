@@ -21,7 +21,35 @@
   </nav>
 </header>
 <main class="container max-w-6xl mx-auto">
-  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  <section
+    class="grid grid-cols-1 gap-4 lg:justify-items-start justify-items-center lg:grid-cols-3 md:grid-cols-2"
+  >
+    @for (note of notesService.notes(); track note) {
+    <article
+      class="{{
+        note.isImportant
+          ? 'bg-red-900 dark:bg-red-900 text-red-50 border-red-800'
+          : 'bg-white dark:bg-gray-800 dark:border-gray-700'
+      }} border-b-2 w-80 h-80 flex flex-col"
+    >
+      <header
+        class="p-4 text-lg font-semibold {{
+          note.isImportant ? 'bg-[#701616]' : 'bg-[#1b222c]'
+        }}"
+      >
+        {{ note.title }}
+      </header>
+      <p class="flex-1 p-4 text-base font-light">
+        {{ note.note }}
+      </p>
+      <footer class="flex justify-end gap-2 px-2">
+        <button class="px-4 py-1 bg-slate-500">editar</button>
+        <button class="px-4 py-1 bg-slate-500">borrar</button>
+      </footer>
+    </article>
+    }
+  </section>
+  <!-- <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table
       class="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400"
     >
@@ -36,16 +64,21 @@
         </tr>
       </thead>
       <tbody>
-        @for (note of notesService.notes(); track note) {
+        @if (notesService.loading()) {
         <tr
-          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+          class="bg-white border-b dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600 dark:border-gray-700"
         >
-          <!-- <th
-              scope="row"
-              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >
-              10
-            </th> -->
+          <td class="px-6 py-4 text-center" colspan="4">Loading...</td>
+        </tr>
+        } @if(!notesService.loading() && !notesService.error()){ @for (note of
+        notesService.notes(); track note) {
+        <tr
+          class="{{
+            note.isImportant
+              ? 'bg-red-900 dark:bg-red-900 text-red-50 hover:bg-red-800 dark:hover:bg-red-800'
+              : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600'
+          }} border-b  dark:border-gray-700 "
+        >
           <td class="px-6 py-4">{{ note.id }}</td>
           <td class="px-6 py-4">{{ note.title }}</td>
           <td class="px-6 py-4">{{ note.note }}</td>
@@ -62,8 +95,16 @@
             >
           </td>
         </tr>
-        }
+        } @empty {
+        <tr
+          class="bg-white border-b dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600 dark:border-gray-700"
+        >
+          <td class="px-6 py-4 text-center" colspan="4">
+            No hay notas para este usuario
+          </td>
+        </tr>
+        } }
       </tbody>
     </table>
-  </div>
+  </div> -->
 </main>
