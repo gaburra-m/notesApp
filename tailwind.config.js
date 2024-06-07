@@ -4,7 +4,12 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        // Simple 16 column grid
+        'notes': 'repeat( auto-fill, minmax(320px, 1fr))'
+      }
+    },
   },
   plugins: [],
 }
