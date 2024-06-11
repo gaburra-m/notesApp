@@ -1,5 +1,6 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { SupabaseService } from '../../shared/data-access/supabase.service';
+import { AuthService } from '../../auth/data-access/auth.service';
 
 interface NoteState {
   notes: Note[];
@@ -18,6 +19,7 @@ interface Note {
 @Injectable({ providedIn: 'root' })
 export class NotesService {
   private _supabaseClient = inject(SupabaseService).supabaseClient;
+  private _authService = inject(AuthService);
   private _state = signal<NoteState>({
     notes: [],
     loading: false,
@@ -35,9 +37,13 @@ export class NotesService {
         ...state,
         loading: true,
       }));
+      const {
+        data: { session },
+      } = await this._authService.session();
       const { data } = await this._supabaseClient
         .from('notes')
         .select()
+        .eq('user_id', session?.user.id)
         .returns<Note[]>();
 
       if (data) {
@@ -57,5 +63,25 @@ export class NotesService {
         loading: false,
       }));
     }
+  }
+
+  async insertNote(note: {
+    title: string;
+    note: string | null;
+    isImportant: boolean;
+  }) {
+    try {
+      const {
+        data: { session },
+      } = await this._authService.session();
+      const response = await this._supabaseClient.from('notes').insert({
+        user_id: session?.user.id,
+        title: note.title,
+        note: note.note,
+        isImportant: note.isImportant,
+      });
+
+      this.getAllNotes();
+    } catch (error) {}
   }
 }
