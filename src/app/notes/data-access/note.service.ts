@@ -8,9 +8,9 @@ interface NoteState {
   error: boolean;
 }
 
-interface Note {
+export interface Note {
   id: string;
-  title: string;
+  title: string | null;
   note: string | null;
   isImportant: boolean;
   user_id: string;
@@ -74,7 +74,7 @@ export class NotesService {
       const {
         data: { session },
       } = await this._authService.session();
-      const response = await this._supabaseClient.from('notes').insert({
+      await this._supabaseClient.from('notes').insert({
         user_id: session?.user.id,
         title: note.title,
         note: note.note,
@@ -82,6 +82,46 @@ export class NotesService {
       });
 
       this.getAllNotes();
-    } catch (error) {}
+    } catch (error) {
+      this._state.update((state) => ({
+        ...state,
+        error: true,
+      }));
+    }
+  }
+
+  async updateNote(note: {
+    id: string;
+    title: string;
+    note: string | null;
+    isImportant: boolean;
+  }) {
+    try {
+      await this._supabaseClient
+        .from('notes')
+        .update({
+          ...note,
+        })
+        .eq('id', note.id);
+
+      this.getAllNotes();
+    } catch (error) {
+      this._state.update((state) => ({
+        ...state,
+        error: true,
+      }));
+    }
+  }
+
+  async deleteNote(id: string) {
+    try {
+      await this._supabaseClient.from('notes').delete().eq('id', id);
+      this.getAllNotes();
+    } catch (error) {
+      this._state.update((state) => ({
+        ...state,
+        error: true,
+      }));
+    }
   }
 }
