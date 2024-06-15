@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { SupabaseService } from '../../shared/data-access/supabase.service';
+import { SupabaseService } from '../../shared/services/supabase.service';
 import { SignUpWithPasswordCredentials } from '@supabase/supabase-js';
 
 @Injectable({ providedIn: 'root' })

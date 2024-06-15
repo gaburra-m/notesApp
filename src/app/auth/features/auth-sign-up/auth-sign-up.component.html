@@ -1,11 +1,16 @@
-<app-alert
+@if (alertComponent.type !== null) {
+<app-alert [type]="alertComponent.type" [message]="alertComponent.message" />
+
+}
+
+<!-- <app-alert
   [type]="'error'"
   [message]="'El correo ya esta en uso, intenta con otro.'"
-/>
+/> -->
 
-<section class="bg-gray-50 dark:bg-gray-900">
+<section class="bg-gray-50 dark:bg-gray-900 h-[100dvh]">
   <div
-    class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"
+    class="flex flex-col items-center justify-center h-screen px-6 py-8 mx-auto lg:py-0"
   >
     <a
       routerLink="/"
@@ -59,6 +64,9 @@
               required=""
               formControlName="password"
             />
+            <small class="text-gray-500"
+              >La contraseña debe ser de mínimo 6 caracteres</small
+            >
           </div>
 
           <button

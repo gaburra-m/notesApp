@@ -1,4 +1,4 @@
-<section class="absolute transition-all right-5">
+<section class="absolute transition-all md:right-5">
   <div
     class="flex items-center p-4 my-4 text-sm rounded-lg {{ alertClasss }}"
     role="alert"
@@ -16,7 +16,7 @@
     </svg>
     <span class="sr-only">Info</span>
     <div>
-      <span class="font-medium">{{ type().toUpperCase() }}!</span>
+      <span class="font-medium">{{ type()!.toUpperCase() }}!</span>
       {{ message() }}
     </div>
   </div>

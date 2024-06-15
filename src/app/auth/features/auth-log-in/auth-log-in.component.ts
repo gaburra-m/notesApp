@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../data-access/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 interface LogInForm {
   email: FormControl<null | string>;

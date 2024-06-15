@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, inject } from '@angular/core';
-import { AuthService } from '../../../auth/data-access/auth.service';
+import { AuthService } from '../../../auth/services/auth.service';
 import { Router, RouterLink } from '@angular/router';
-import { Note, NotesService } from '../../data-access/note.service';
+import { Note, NotesService } from '../../services/note.service';
 import {
   FormBuilder,
   FormControl,

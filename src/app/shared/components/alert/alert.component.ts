@@ -8,8 +8,8 @@ import { Component, input, signal } from '@angular/core';
   styles: ``,
 })
 export class AlertComponent {
-  type = input<'success' | 'error' | 'warning' | 'info'>('info');
-  message = input<string>('');
+  type = input<'success' | 'error' | 'warning' | 'info' | null>(null);
+  message = input<string | null>(null);
 
   get alertClasss() {
     switch (this.type()) {

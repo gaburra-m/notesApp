@@ -1,6 +1,6 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { SupabaseService } from '../../shared/data-access/supabase.service';
-import { AuthService } from '../../auth/data-access/auth.service';
+import { SupabaseService } from '../../shared/services/supabase.service';
+import { AuthService } from '../../auth/services/auth.service';
 
 interface NoteState {
   notes: Note[];
