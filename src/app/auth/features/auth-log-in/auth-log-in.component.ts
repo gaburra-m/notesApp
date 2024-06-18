@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 interface LogInForm {
   email: FormControl<null | string>;
@@ -24,6 +25,7 @@ export default class AuthLogInComponent {
   private _formBuilder = inject(FormBuilder);
   private _authService = inject(AuthService);
   private _router = inject(Router);
+  private toastr = inject(ToastrService);
 
   form = this._formBuilder.group<LogInForm>({
     email: this._formBuilder.control(null, [
@@ -51,7 +53,11 @@ export default class AuthLogInComponent {
     } catch (error) {
       if (error instanceof Error) {
         console.log(error);
-        alert('Credenciales invalidas');
+        this.toastr.error('Correo o contraseña incorrectos', '', {
+          progressBar: true,
+          progressAnimation: 'decreasing',
+          closeButton: true,
+        });
       }
     }
   }

@@ -2,24 +2,21 @@ import { AfterViewInit, Component, inject } from '@angular/core';
 import { AuthService } from '../../../auth/services/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { Note, NotesService } from '../../services/note.service';
-import {
-  FormBuilder,
-  FormControl,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-note-list',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './note-list.component.html',
   styles: ``,
+  imports: [RouterLink, ReactiveFormsModule],
 })
 export default class NoteListComponent implements AfterViewInit {
   private _authService = inject(AuthService);
   private _router = inject(Router);
   private _formBuilder = inject(FormBuilder);
+  private toastr = inject(ToastrService);
 
   public notesService = inject(NotesService);
   public toggleNote = false;
@@ -42,7 +39,14 @@ export default class NoteListComponent implements AfterViewInit {
   }
 
   newNote() {
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      this.toastr.error('Escribe un titulo a la nota', '¡Error!', {
+        progressBar: true,
+        progressAnimation: 'decreasing',
+        closeButton: true,
+      });
+      return;
+    }
     if (this.noteSelected) {
       this.notesService.updateNote({
         id: this.noteSelected.id,
@@ -50,11 +54,23 @@ export default class NoteListComponent implements AfterViewInit {
         note: this.form.value.note ?? '',
         isImportant: this.form.value.isImportant!,
       });
+      this.toastr.success('¡Nota actualizada con exito!', '', {
+        progressBar: true,
+        progressAnimation: 'decreasing',
+        closeButton: true,
+        timeOut: 3000,
+      });
     } else {
       this.notesService.insertNote({
         title: this.form.value.title ?? '',
         note: this.form.value.note ?? '',
         isImportant: this.form.value.isImportant!,
+      });
+      this.toastr.success('¡Nota creada con exito!', '', {
+        progressBar: true,
+        progressAnimation: 'decreasing',
+        closeButton: true,
+        timeOut: 3000,
       });
     }
     this.toggleNote = !this.toggleNote;
@@ -80,5 +96,11 @@ export default class NoteListComponent implements AfterViewInit {
 
   deleteNote(note: Note) {
     this.notesService.deleteNote(note.id);
+    this.toastr.success('¡Nota borrada con exito!', '', {
+      progressBar: true,
+      progressAnimation: 'decreasing',
+      closeButton: true,
+      timeOut: 3000,
+    });
   }
 }

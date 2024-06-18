@@ -26,7 +26,7 @@ export class AlertService {
           type: null,
           message: null,
         };
-        this._router.navigateByUrl('/');
+        // this._router.navigateByUrl('/');
       }, time);
     }
 
