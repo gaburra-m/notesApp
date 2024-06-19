@@ -32,17 +32,32 @@
   </nav>
 </header>
 <main class="container max-w-6xl mx-auto">
-  <div
-    class="flex items-center justify-start px-4 py-2 mx-1 mb-8 rounded-full md:mx-0 w-fit dark:bg-gray-800 bg-slate-100"
-  >
-    <p class="text-sm font-light text-gray-600 dark:text-gray-300">
-      👋 ¡Hola
-      <span class="font-normal text-gray-800 dark:text-white">{{
-        userSession
-      }}</span
-      >!
-    </p>
-  </div>
+  <section class="flex items-center justify-between mb-8">
+    <div
+      class="flex items-center px-4 py-2 mx-1 rounded-full md:mx-0 w-fit dark:bg-gray-800 bg-slate-100"
+    >
+      <p class="text-sm font-light text-gray-600 dark:text-gray-300">
+        👋 ¡Hola
+        <span class="font-normal text-gray-800 dark:text-white">{{
+          userSession
+        }}</span
+        >!
+      </p>
+    </div>
+    <div class="flex items-center justify-center gap-1">
+      <div
+        class="px-4 py-2 mx-1 rounded-full md:mx-0 dark:bg-gray-800 bg-slate-100"
+      >
+        <p class="text-sm font-light text-gray-600 dark:text-gray-300">
+          @if (!notesService.notes().length){ No tienes notas } @else { Tienes
+          <span class="font-normal text-gray-800 dark:text-white">{{
+            notesService.notes().length
+          }}</span>
+          {{ notesService.notes().length === 1 ? "nota" : "notas" }} }
+        </p>
+      </div>
+    </div>
+  </section>
 
   @if (toggleNote) {
   <section
