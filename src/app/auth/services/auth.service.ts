@@ -18,7 +18,7 @@ export class AuthService {
     return this._supabaseClient.auth.signInWithPassword(credentials);
   }
 
-  singOut() {
+  signOut() {
     return this._supabaseClient.auth.signOut();
   }
 }

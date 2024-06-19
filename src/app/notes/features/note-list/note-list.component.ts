@@ -37,7 +37,7 @@ export default class NoteListComponent implements AfterViewInit {
   }
 
   async logOut() {
-    await this._authService.singOut();
+    await this._authService.signOut();
     this._router.navigateByUrl('/auth/log-in');
   }
 
