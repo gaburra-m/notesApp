@@ -115,7 +115,7 @@
   <section
     class="grid gap-4 px-2 lg:justify-items-start justify-items-center grid-cols-notes"
   >
-    @for (note of notesService.notes(); track note) {
+    @for (note of notesService.notes() | reverse; track note) {
     <article
       class="{{
         note.isImportant

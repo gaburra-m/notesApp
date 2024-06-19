@@ -4,13 +4,14 @@ import { Router, RouterLink } from '@angular/router';
 import { Note, NotesService } from '../../services/note.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { ReversePipe } from '../../../shared/pipes/reverse.pipe';
 
 @Component({
   selector: 'app-note-list',
   standalone: true,
   templateUrl: './note-list.component.html',
   styles: ``,
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, ReversePipe],
 })
 export default class NoteListComponent implements AfterViewInit {
   private _authService = inject(AuthService);
