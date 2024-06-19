@@ -20,6 +20,7 @@ export default class NoteListComponent implements AfterViewInit {
 
   public notesService = inject(NotesService);
   public toggleNote = false;
+  public userSession: string | undefined = '';
 
   public noteSelected: Note | null = null;
 
@@ -29,6 +30,11 @@ export default class NoteListComponent implements AfterViewInit {
     isImportant: this._formBuilder.control(false),
   });
 
+  async session() {
+    const { data } = await this._authService.session();
+    this.userSession = data.session?.user.email;
+  }
+
   async logOut() {
     await this._authService.singOut();
     this._router.navigateByUrl('/auth/log-in');
@@ -36,6 +42,7 @@ export default class NoteListComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.notesService.getAllNotes();
+    this.session();
   }
 
   newNote() {
